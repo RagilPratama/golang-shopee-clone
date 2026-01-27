@@ -41,8 +41,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/models.FeaturesResponse"
                         }
                     }
                 }
@@ -74,7 +73,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Feature"
+                            "$ref": "#/definitions/models.FeatureResponse"
                         }
                     }
                 }
@@ -97,8 +96,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/models.MenusResponse"
                         }
                     }
                 }
@@ -130,7 +128,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Menu"
+                            "$ref": "#/definitions/models.MenuResponse"
                         }
                     }
                 }
@@ -153,8 +151,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/models.ProductsResponse"
                         }
                     }
                 }
@@ -186,8 +183,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/models.ProductResponse"
                         }
                     },
                     "400": {
@@ -226,8 +222,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/models.ProductResponse"
                         }
                     },
                     "400": {
@@ -347,6 +342,25 @@ const docTemplate = `{
                 }
             }
         },
+        "models.FeatureResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Feature"
+                }
+            }
+        },
+        "models.FeaturesResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Feature"
+                    }
+                }
+            }
+        },
         "models.Menu": {
             "type": "object",
             "properties": {
@@ -367,6 +381,25 @@ const docTemplate = `{
                 },
                 "title": {
                     "type": "string"
+                }
+            }
+        },
+        "models.MenuResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Menu"
+                }
+            }
+        },
+        "models.MenusResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Menu"
+                    }
                 }
             }
         },
@@ -420,6 +453,25 @@ const docTemplate = `{
                 },
                 "variant_label": {
                     "type": "string"
+                }
+            }
+        },
+        "models.ProductResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Product"
+                }
+            }
+        },
+        "models.ProductsResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Product"
+                    }
                 }
             }
         }

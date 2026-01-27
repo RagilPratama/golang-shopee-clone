@@ -16,7 +16,7 @@ import (
 // @Tags         products
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  map[string]interface{}
+// @Success      200  {object}  models.ProductsResponse
 // @Router       /products [get]
 func FindProducts(c *gin.Context) {
 	var products []models.Product
@@ -33,7 +33,7 @@ func FindProducts(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Param        product  body      models.Product  true  "Product JSON"
-// @Success      200      {object}  map[string]interface{}
+// @Success      200      {object}  models.ProductResponse
 // @Failure      400      {object}  map[string]interface{}
 // @Router       /products [post]
 func CreateProduct(c *gin.Context) {
@@ -75,7 +75,7 @@ func CreateProduct(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Param        id   path      string  true  "Product ID"
-// @Success      200  {object}  map[string]interface{}
+// @Success      200  {object}  models.ProductResponse
 // @Failure      400  {object}  map[string]interface{}
 // @Router       /products/{id} [get]
 func FindProduct(c *gin.Context) {

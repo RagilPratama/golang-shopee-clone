@@ -15,7 +15,7 @@ import (
 // @Tags         features
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  map[string]interface{}
+// @Success      200  {object}  models.FeaturesResponse
 // @Router       /features [get]
 func FindFeatures(c *gin.Context) {
 	var features []models.Feature
@@ -32,7 +32,7 @@ func FindFeatures(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Param        feature  body      models.Feature  true  "Feature"
-// @Success      200      {object}  models.Feature
+// @Success      200      {object}  models.FeatureResponse
 // @Router       /features [post]
 func CreateFeature(c *gin.Context) {
 	var input models.Feature

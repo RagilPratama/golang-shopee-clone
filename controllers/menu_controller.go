@@ -15,7 +15,7 @@ import (
 // @Tags         menus
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  map[string]interface{}
+// @Success      200  {object}  models.MenusResponse
 // @Router       /menus [get]
 func FindMenus(c *gin.Context) {
 	var menus []models.Menu
@@ -32,7 +32,7 @@ func FindMenus(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Param        menu  body      models.Menu  true  "Menu"
-// @Success      200   {object}  models.Menu
+// @Success      200   {object}  models.MenuResponse
 // @Router       /menus [post]
 func CreateMenu(c *gin.Context) {
 	var input models.Menu

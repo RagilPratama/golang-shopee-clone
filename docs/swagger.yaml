@@ -13,6 +13,18 @@ definitions:
       title:
         type: string
     type: object
+  models.FeatureResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.Feature'
+    type: object
+  models.FeaturesResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.Feature'
+        type: array
+    type: object
   models.Menu:
     properties:
       bgColor:
@@ -27,6 +39,18 @@ definitions:
         type: string
       title:
         type: string
+    type: object
+  models.MenuResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.Menu'
+    type: object
+  models.MenusResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.Menu'
+        type: array
     type: object
   models.Product:
     properties:
@@ -63,6 +87,18 @@ definitions:
       variant_label:
         type: string
     type: object
+  models.ProductResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.Product'
+    type: object
+  models.ProductsResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.Product'
+        type: array
+    type: object
 host: golang-shopee-clone-production.up.railway.app
 info:
   contact:
@@ -88,8 +124,7 @@ paths:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/models.FeaturesResponse'
       summary: Show all features
       tags:
       - features
@@ -110,7 +145,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.Feature'
+            $ref: '#/definitions/models.FeatureResponse'
       summary: Create a new feature
       tags:
       - features
@@ -125,8 +160,7 @@ paths:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/models.MenusResponse'
       summary: Show all menus
       tags:
       - menus
@@ -147,7 +181,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.Menu'
+            $ref: '#/definitions/models.MenuResponse'
       summary: Create a new menu
       tags:
       - menus
@@ -162,8 +196,7 @@ paths:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/models.ProductsResponse'
       summary: Show all products
       tags:
       - products
@@ -184,8 +217,7 @@ paths:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/models.ProductResponse'
         "400":
           description: Bad Request
           schema:
@@ -237,8 +269,7 @@ paths:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/models.ProductResponse'
         "400":
           description: Bad Request
           schema:
