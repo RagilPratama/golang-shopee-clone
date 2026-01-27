@@ -21,6 +21,9 @@ func SetupRouter() *gin.Engine {
 	r.GET("/menus", controllers.FindMenus)
 	r.POST("/menus", controllers.CreateMenu)
 
+	r.GET("/features", controllers.FindFeatures)
+	r.POST("/features", controllers.CreateFeature)
+
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return r
