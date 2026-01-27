@@ -124,7 +124,7 @@ definitions:
       rating:
         type: number
     type: object
-host: localhost:8080
+host: golang-shopee-clone-production.up.railway.app
 info:
   contact:
     email: support@swagger.io
@@ -336,5 +336,5 @@ paths:
       tags:
       - products
 schemes:
-- http
+- https
 swagger: "2.0"

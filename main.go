@@ -18,8 +18,8 @@ import (
 // @license.name    Apache 2.0
 // @license.url     http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host            localhost:8080
-// @schemes         http
+// @host            golang-shopee-clone-production.up.railway.app
+// @schemes         https
 // @BasePath        /
 
 func main() {
