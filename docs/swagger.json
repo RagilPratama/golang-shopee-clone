@@ -21,6 +21,62 @@
     "host": "golang-shopee-clone-production.up.railway.app",
     "basePath": "/",
     "paths": {
+        "/features": {
+            "get": {
+                "description": "Get all features",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "features"
+                ],
+                "summary": "Show all features",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new feature",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "features"
+                ],
+                "summary": "Create a new feature",
+                "parameters": [
+                    {
+                        "description": "Feature",
+                        "name": "feature",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Feature"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Feature"
+                        }
+                    }
+                }
+            }
+        },
         "/menus": {
             "get": {
                 "description": "Get all menus",
@@ -268,6 +324,26 @@
         }
     },
     "definitions": {
+        "models.Feature": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
         "models.Menu": {
             "type": "object",
             "properties": {

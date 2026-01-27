@@ -1,5 +1,18 @@
 basePath: /
 definitions:
+  models.Feature:
+    properties:
+      amount:
+        type: string
+      icon:
+        type: string
+      id:
+        type: string
+      subtitle:
+        type: string
+      title:
+        type: string
+    type: object
   models.Menu:
     properties:
       bgColor:
@@ -64,6 +77,43 @@ info:
   title: Golang Shopee API
   version: "1.0"
 paths:
+  /features:
+    get:
+      consumes:
+      - application/json
+      description: Get all features
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Show all features
+      tags:
+      - features
+    post:
+      consumes:
+      - application/json
+      description: Create a new feature
+      parameters:
+      - description: Feature
+        in: body
+        name: feature
+        required: true
+        schema:
+          $ref: '#/definitions/models.Feature'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Feature'
+      summary: Create a new feature
+      tags:
+      - features
   /menus:
     get:
       consumes:
