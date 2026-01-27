@@ -17,7 +17,10 @@ func ConnectDatabase() {
 	// Contoh: postgres://alex:AbCdEf123@ep-cool-darkness-123456.us-east-2.aws.neon.tech/neondb?sslmode=require
 	dsn := "postgresql://neondb_owner:npg_2dqsHUuxRL1r@ep-rapid-paper-ah8gmx9h-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require"
 
-	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	database, err := gorm.Open(postgres.New(postgres.Config{
+		DSN:                  dsn,
+		PreferSimpleProtocol: true,
+	}), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Gagal koneksi database Neon:", err)
 	}

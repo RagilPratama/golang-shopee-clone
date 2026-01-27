@@ -20,7 +20,14 @@ import (
 // @Router       /products [get]
 func FindProducts(c *gin.Context) {
 	var products []models.Product
-	config.DB.Preload("Shop").Find(&products)
+	tx := config.DB.Preload("Shop").Find(&products)
+	if tx.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": tx.Error.Error(), "data": []models.Product{}})
+		return
+	}
+	if products == nil {
+		products = []models.Product{}
+	}
 
 	c.JSON(http.StatusOK, gin.H{"data": products})
 }
