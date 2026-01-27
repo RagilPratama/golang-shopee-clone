@@ -23,15 +23,9 @@ import (
 // @BasePath        /
 
 func main() {
-	// Connect to database
 	config.ConnectDatabase()
-
-	// Auto Migrate
 	config.DB.AutoMigrate(&models.Product{}, &models.Menu{})
 
-	// Setup Router
 	r := routes.SetupRouter()
-
-	// Run server
 	r.Run(":8080")
 }
