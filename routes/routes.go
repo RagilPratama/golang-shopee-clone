@@ -18,6 +18,9 @@ func SetupRouter() *gin.Engine {
 	r.PUT("/products/:id", controllers.UpdateProduct)
 	r.DELETE("/products/:id", controllers.DeleteProduct)
 
+	r.GET("/menus", controllers.FindMenus)
+	r.POST("/menus", controllers.CreateMenu)
+
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return r

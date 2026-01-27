@@ -27,7 +27,7 @@ func main() {
 	config.ConnectDatabase()
 
 	// Auto Migrate
-	config.DB.AutoMigrate(&models.Product{})
+	config.DB.AutoMigrate(&models.Product{}, &models.Menu{})
 
 	// Setup Router
 	r := routes.SetupRouter()

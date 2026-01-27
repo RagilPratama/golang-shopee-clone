@@ -24,6 +24,62 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/menus": {
+            "get": {
+                "description": "Get all menus",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "menus"
+                ],
+                "summary": "Show all menus",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new menu",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "menus"
+                ],
+                "summary": "Create a new menu",
+                "parameters": [
+                    {
+                        "description": "Menu",
+                        "name": "menu",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Menu"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Menu"
+                        }
+                    }
+                }
+            }
+        },
         "/products": {
             "get": {
                 "description": "Get all products",
@@ -215,6 +271,29 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "models.Menu": {
+            "type": "object",
+            "properties": {
+                "bgColor": {
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "iconColor": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "route": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
         "models.Product": {
             "type": "object",
             "properties": {

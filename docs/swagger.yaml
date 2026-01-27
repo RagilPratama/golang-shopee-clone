@@ -1,5 +1,20 @@
 basePath: /
 definitions:
+  models.Menu:
+    properties:
+      bgColor:
+        type: string
+      icon:
+        type: string
+      iconColor:
+        type: string
+      id:
+        type: string
+      route:
+        type: string
+      title:
+        type: string
+    type: object
   models.Product:
     properties:
       badge:
@@ -49,6 +64,43 @@ info:
   title: Golang Shopee API
   version: "1.0"
 paths:
+  /menus:
+    get:
+      consumes:
+      - application/json
+      description: Get all menus
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Show all menus
+      tags:
+      - menus
+    post:
+      consumes:
+      - application/json
+      description: Create a new menu
+      parameters:
+      - description: Menu
+        in: body
+        name: menu
+        required: true
+        schema:
+          $ref: '#/definitions/models.Menu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Menu'
+      summary: Create a new menu
+      tags:
+      - menus
   /products:
     get:
       consumes:
