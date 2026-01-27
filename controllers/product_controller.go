@@ -20,7 +20,7 @@ import (
 // @Router       /products [get]
 func FindProducts(c *gin.Context) {
 	var products []models.Product
-	config.DB.Find(&products)
+	config.DB.Preload("Shop").Find(&products)
 
 	c.JSON(http.StatusOK, gin.H{"data": products})
 }
@@ -43,24 +43,7 @@ func CreateProduct(c *gin.Context) {
 		return
 	}
 
-	product := models.Product{
-		ID:                 input.ID,
-		Title:              input.Title,
-		Jenis:              input.Jenis,
-		Image:              input.Image,
-		Jumlah:             input.Jumlah,
-		HargaSatuan:        input.HargaSatuan,
-		HargaPromo:         input.HargaPromo,
-		TotalJumlah:        input.TotalJumlah,
-		TotalHarga:         input.TotalHarga,
-		EstimasiPengiriman: input.EstimasiPengiriman,
-		ShopName:           input.ShopName,
-		Badge:              input.Badge,
-		Live:               input.Live,
-		Status:             input.Status,
-		CoinRewardText:     input.CoinRewardText,
-		VariantLabel:       input.VariantLabel,
-	}
+	product := input
 
 	config.DB.Create(&product)
 
@@ -81,7 +64,7 @@ func CreateProduct(c *gin.Context) {
 func FindProduct(c *gin.Context) {
 	var product models.Product
 
-	if err := config.DB.Where("id = ?", c.Param("id")).First(&product).Error; err != nil {
+	if err := config.DB.Preload("Shop").Where("id = ?", c.Param("id")).First(&product).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Product not found!"})
 		return
 	}

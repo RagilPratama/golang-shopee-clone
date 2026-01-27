@@ -24,7 +24,7 @@ import (
 
 func main() {
 	config.ConnectDatabase()
-	config.DB.AutoMigrate(&models.Product{}, &models.Menu{}, &models.Feature{})
+	config.DB.AutoMigrate(&models.Shop{}, &models.Product{}, &models.Menu{}, &models.Feature{})
 
 	r := routes.SetupRouter()
 	r.Run(":8080")

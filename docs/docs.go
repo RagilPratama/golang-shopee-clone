@@ -406,20 +406,26 @@ const docTemplate = `{
         "models.Product": {
             "type": "object",
             "properties": {
-                "badge": {
-                    "type": "string"
-                },
-                "coin_reward_text": {
-                    "type": "string"
-                },
-                "estimasi_pengiriman": {
+                "ShopID": {
                     "type": "integer"
                 },
-                "harga_promo": {
-                    "type": "number"
+                "category": {
+                    "type": "string"
                 },
-                "harga_satuan": {
-                    "type": "number"
+                "coin": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "diskon": {
+                    "type": "string"
+                },
+                "durasi": {
+                    "type": "string"
                 },
                 "id": {
                     "type": "string"
@@ -427,31 +433,43 @@ const docTemplate = `{
                 "image": {
                     "type": "string"
                 },
-                "jenis": {
-                    "type": "string"
-                },
-                "jumlah": {
-                    "type": "integer"
-                },
-                "live": {
+                "isFavorite": {
                     "type": "boolean"
                 },
-                "shop_name": {
+                "isMall": {
+                    "type": "boolean"
+                },
+                "isOri": {
+                    "type": "boolean"
+                },
+                "kota": {
                     "type": "string"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "promo": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "number"
+                },
+                "ratingCount": {
+                    "type": "integer"
+                },
+                "shipping": {
+                    "type": "string"
+                },
+                "shopDetail": {
+                    "$ref": "#/definitions/models.Shop"
+                },
+                "sold": {
+                    "type": "integer"
                 },
                 "status": {
                     "type": "string"
                 },
                 "title": {
-                    "type": "string"
-                },
-                "total_harga": {
-                    "type": "number"
-                },
-                "total_jumlah": {
-                    "type": "integer"
-                },
-                "variant_label": {
                     "type": "string"
                 }
             }
@@ -472,6 +490,26 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/models.Product"
                     }
+                }
+            }
+        },
+        "models.Shop": {
+            "type": "object",
+            "properties": {
+                "chatPercentage": {
+                    "type": "integer"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "productCount": {
+                    "type": "integer"
+                },
+                "rating": {
+                    "type": "number"
                 }
             }
         }
