@@ -21,7 +21,7 @@ func FindFeatures(c *gin.Context) {
 	var features []models.Feature
 	config.DB.Find(&features)
 
-	c.JSON(http.StatusOK, gin.H{"data": features})
+	c.JSON(http.StatusBadRequest, gin.H{"data": features})
 }
 
 // POST /features
