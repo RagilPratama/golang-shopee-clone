@@ -17,7 +17,7 @@ type Product struct {
 	RatingCount int      `json:"ratingCount"`
 	Sold        int      `json:"sold"`
 	Image       string   `json:"image"`
-	ImageUrl    []string `json:"imgUrl"`
+	ImageUrl    []string `json:"imgUrl" gorm:"type:text[]"`
 
 	IsMall     bool   `json:"isMall"`
 	IsOri      bool   `json:"isOri"`
