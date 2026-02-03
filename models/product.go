@@ -20,6 +20,7 @@ type Product struct {
 
 	IsMall     bool   `json:"isMall"`
 	IsOri      bool   `json:"isOri"`
+	IsTrending bool   `json:"isTrending"`
 	IsFavorite bool   `json:"isFavorite"`
 	Coin       string `json:"coin"`
 	Status     string `json:"status"`
