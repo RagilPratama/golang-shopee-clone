@@ -4,6 +4,7 @@ import (
 	"golang-shopee/controllers"
 	_ "golang-shopee/docs"
 
+	"github.com/gin-contrib/gzip"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -11,6 +12,9 @@ import (
 
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
+
+	// Enable Gzip compression
+	r.Use(gzip.Gzip(gzip.DefaultCompression))
 
 	r.Use(func(c *gin.Context) {
 		c.Writer.Header().Set("Referrer-Policy", "strict-origin-when-cross-origin")
