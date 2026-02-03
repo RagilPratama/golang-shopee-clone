@@ -10,13 +10,14 @@ type Shop struct {
 }
 
 type Product struct {
-	ID          string  `json:"id" gorm:"primaryKey"`
-	Title       string  `json:"title"`
-	Price       string  `json:"price"`
-	Rating      float64 `json:"rating"`
-	RatingCount int     `json:"ratingCount"`
-	Sold        int     `json:"sold"`
-	Image       string  `json:"image"`
+	ID          string   `json:"id" gorm:"primaryKey"`
+	Title       string   `json:"title"`
+	Price       string   `json:"price"`
+	Rating      float64  `json:"rating"`
+	RatingCount int      `json:"ratingCount"`
+	Sold        int      `json:"sold"`
+	Image       string   `json:"image"`
+	ImageUrl    []string `json:"imgUrl"`
 
 	IsMall     bool   `json:"isMall"`
 	IsOri      bool   `json:"isOri"`
