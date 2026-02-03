@@ -1,5 +1,7 @@
 package models
 
+import "github.com/lib/pq"
+
 type Shop struct {
 	ID             uint    `json:"-" gorm:"primaryKey"`
 	Name           string  `json:"name"`
@@ -10,14 +12,14 @@ type Shop struct {
 }
 
 type Product struct {
-	ID          string   `json:"id" gorm:"primaryKey"`
-	Title       string   `json:"title"`
-	Price       string   `json:"price"`
-	Rating      float64  `json:"rating"`
-	RatingCount int      `json:"ratingCount"`
-	Sold        int      `json:"sold"`
-	Image       string   `json:"image"`
-	ImageUrl    []string `json:"imgUrl" gorm:"type:text[]"`
+	ID          string         `json:"id" gorm:"primaryKey"`
+	Title       string         `json:"title"`
+	Price       string         `json:"price"`
+	Rating      float64        `json:"rating"`
+	RatingCount int            `json:"ratingCount"`
+	Sold        int            `json:"sold"`
+	Image       string         `json:"image"`
+	ImageUrl    pq.StringArray `json:"imgUrl" gorm:"type:text[]"`
 
 	IsMall     bool   `json:"isMall"`
 	IsOri      bool   `json:"isOri"`
