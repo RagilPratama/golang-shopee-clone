@@ -20,16 +20,47 @@ import (
 // @Router       /products [get]
 func FindProducts(c *gin.Context) {
 	var products []models.Product
-	// Optimasi: Gunakan Joins daripada Preload untuk mengurangi Round Trip Time (RTT) ke database
-	// Joins akan melakukan 1 query (LEFT JOIN) sedangkan Preload melakukan 2 query
-	tx := config.DB.Joins("Shop").Find(&products)
-	if tx.Error != nil {
+	// Optimasi: Gunakan Native Query untuk performa maksimal dan kontrol penuh
+	query := `
+		SELECT 
+			p.id, p.title, p.price, p.rating, p.rating_count, p.sold, p.image, p.image_url,
+			p.is_mall, p.is_ori, p.is_trending, p.is_favorite, p.coin, p.status, p.diskon, p.category,
+			p.description, p.shipping, p.promo, p.created_at, p.kota, p.durasi, p.shop_id,
+			s.id, s.name, s.rating, s.product_count, s.chat_percentage, s.location
+		FROM products p
+		LEFT JOIN shops s ON p.shop_id = s.id
+	`
+
+	rows, err := config.DB.Raw(query).Rows()
+	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": tx.Error.Error(),
+			"error": err.Error(),
 			"data":  []models.Product{},
 		})
 		return
 	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var p models.Product
+		var s models.Shop
+
+		// Scan setiap kolom secara manual ke dalam struct
+		// Pastikan urutan scan sesuai dengan urutan SELECT
+		if err := rows.Scan(
+			&p.ID, &p.Title, &p.Price, &p.Rating, &p.RatingCount, &p.Sold, &p.Image, &p.ImageUrl,
+			&p.IsMall, &p.IsOri, &p.IsTrending, &p.IsFavorite, &p.Coin, &p.Status, &p.Diskon, &p.Category,
+			&p.Description, &p.Shipping, &p.Promo, &p.CreatedAt, &p.Kota, &p.Durasi, &p.ShopID,
+			&s.ID, &s.Name, &s.Rating, &s.ProductCount, &s.ChatPercentage, &s.Location,
+		); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to scan product: " + err.Error()})
+			return
+		}
+
+		p.Shop = s
+		products = append(products, p)
+	}
+
 	if products == nil {
 		products = []models.Product{}
 	}
