@@ -54,6 +54,10 @@ definitions:
     type: object
   models.Product:
     properties:
+      ImageUrl:
+        items:
+          type: string
+        type: array
       ShopID:
         type: integer
       category:
@@ -77,6 +81,8 @@ definitions:
       isMall:
         type: boolean
       isOri:
+        type: boolean
+      isTrending:
         type: boolean
       kota:
         type: string
@@ -214,7 +220,18 @@ paths:
     get:
       consumes:
       - application/json
-      description: Get all products
+      description: Get all products with pagination
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
       produces:
       - application/json
       responses:

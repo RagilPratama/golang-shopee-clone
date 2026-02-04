@@ -1,7 +1,9 @@
 package controllers
 
 import (
+	"math"
 	"net/http"
+	"strconv"
 
 	"golang-shopee/config"
 	"golang-shopee/models"
@@ -12,14 +14,34 @@ import (
 // GET /products
 // Get all products
 // @Summary      Show all products
-// @Description  Get all products
+// @Description  Get all products with pagination
 // @Tags         products
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  models.ProductsResponse
+// @Param        page   query     int  false  "Page number"        default(1)
+// @Param        limit  query     int  false  "Items per page"     default(10)
+// @Success      200    {object}  models.ProductsResponse
 // @Router       /products [get]
 func FindProducts(c *gin.Context) {
+	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+	limit, _ := strconv.Atoi(c.DefaultQuery("limit", "10"))
+	if page < 1 {
+		page = 1
+	}
+	if limit < 1 {
+		limit = 10
+	}
+	offset := (page - 1) * limit
+
 	var products []models.Product
+	var total int64
+
+	// Get total count
+	if err := config.DB.Model(&models.Product{}).Count(&total).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to count products"})
+		return
+	}
+
 	// Optimasi: Gunakan Native Query untuk performa maksimal dan kontrol penuh
 	query := `
 		SELECT 
@@ -29,9 +51,10 @@ func FindProducts(c *gin.Context) {
 			s.id, s.name, s.rating, s.product_count, s.chat_percentage, s.location
 		FROM products p
 		LEFT JOIN shops s ON p.shop_id = s.id
+		LIMIT ? OFFSET ?
 	`
 
-	rows, err := config.DB.Raw(query).Rows()
+	rows, err := config.DB.Raw(query, limit, offset).Rows()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
@@ -65,7 +88,17 @@ func FindProducts(c *gin.Context) {
 		products = []models.Product{}
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": products})
+	totalPages := int(math.Ceil(float64(total) / float64(limit)))
+
+	c.JSON(http.StatusOK, gin.H{
+		"data": products,
+		"meta": gin.H{
+			"page":        page,
+			"limit":       limit,
+			"total":       total,
+			"total_pages": totalPages,
+		},
+	})
 }
 
 // POST /products

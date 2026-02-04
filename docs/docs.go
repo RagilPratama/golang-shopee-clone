@@ -136,7 +136,7 @@ const docTemplate = `{
         },
         "/products": {
             "get": {
-                "description": "Get all products",
+                "description": "Get all products with pagination",
                 "consumes": [
                     "application/json"
                 ],
@@ -147,6 +147,22 @@ const docTemplate = `{
                     "products"
                 ],
                 "summary": "Show all products",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Items per page",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -406,6 +422,12 @@ const docTemplate = `{
         "models.Product": {
             "type": "object",
             "properties": {
+                "ImageUrl": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "ShopID": {
                     "type": "integer"
                 },
@@ -440,6 +462,9 @@ const docTemplate = `{
                     "type": "boolean"
                 },
                 "isOri": {
+                    "type": "boolean"
+                },
+                "isTrending": {
                     "type": "boolean"
                 },
                 "kota": {
