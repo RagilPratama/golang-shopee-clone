@@ -20,9 +20,14 @@ import (
 // @Router       /products [get]
 func FindProducts(c *gin.Context) {
 	var products []models.Product
-	tx := config.DB.Preload("Shop").Find(&products)
+	// Optimasi: Gunakan Joins daripada Preload untuk mengurangi Round Trip Time (RTT) ke database
+	// Joins akan melakukan 1 query (LEFT JOIN) sedangkan Preload melakukan 2 query
+	tx := config.DB.Joins("Shop").Find(&products)
 	if tx.Error != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": tx.Error.Error(), "data": []models.Product{}})
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": tx.Error.Error(),
+			"data":  []models.Product{},
+		})
 		return
 	}
 	if products == nil {

@@ -38,5 +38,5 @@ type Product struct {
 	Durasi      string `json:"durasi"`
 
 	Shop   Shop `json:"shopDetail" gorm:"foreignKey:ShopID"`
-	ShopID uint `json:"ShopID"`
+	ShopID uint `json:"ShopID" gorm:"index"`
 }

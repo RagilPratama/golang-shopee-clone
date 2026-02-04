@@ -23,7 +23,8 @@ func ConnectDatabase() {
 		DSN:                  dsn,
 		PreferSimpleProtocol: true,
 	}), &gorm.Config{
-		PrepareStmt: true, // Cache statements untuk performa lebih baik
+		// PrepareStmt: true, // Dinonaktifkan untuk mengurangi overhead pada koneksi latency tinggi
+		SkipDefaultTransaction: true, // Optimasi: Matikan transaksi default untuk read operations mempercepat query
 	})
 	if err != nil {
 		log.Fatal("Gagal koneksi database Neon:", err)
