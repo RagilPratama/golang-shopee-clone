@@ -1,9 +1,13 @@
 package main
 
 import (
+	"log"
+
 	"golang-shopee/config"
 	"golang-shopee/models"
 	"golang-shopee/routes"
+
+	"github.com/joho/godotenv"
 )
 
 // @title           Golang Shopee API
@@ -23,8 +27,14 @@ import (
 // @BasePath        /
 
 func main() {
+	if err := godotenv.Load(); err != nil {
+		log.Println("No .env file found, assuming production environment (Railway/Docker). Using system variables.")
+	} else {
+		log.Println(".env file loaded successfully")
+	}
+
 	config.ConnectDatabase()
-	config.DB.AutoMigrate(&models.Shop{}, &models.Product{}, &models.Menu{}, &models.Feature{})
+	config.DB.AutoMigrate(&models.Shop{}, &models.Product{}, &models.Menu{}, &models.Feature{}, &models.User{})
 
 	r := routes.SetupRouter()
 	r.Run(":8080")

@@ -43,6 +43,10 @@ func SetupRouter() *gin.Engine {
 	r.GET("/features", controllers.FindFeatures)
 	r.POST("/features", controllers.CreateFeature)
 
+	// GitHub OAuth Routes
+	r.GET("/auth/github", controllers.GithubLogin)
+	r.GET("/auth/github/callback", controllers.GithubCallback)
+
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return r
